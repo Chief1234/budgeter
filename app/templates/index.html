@@ -14,6 +14,10 @@
         
         <div class="container">
 
+            <div id='drop-area' style='width:100px; height:100px; background-color: blue;' >
+                
+            </div>
+
             <div>tabs for datagrid here?</div>
 
                 click a tab - go to 
@@ -54,9 +58,38 @@
         }
 
         $( document ).ready(function() {
+            
+            initializeDropZone();
+            
             updates.push(updatepage);
             UpdateState();
         });
+
+        function initializeDropZone(){
+
+            let dropArea = document.getElementById('drop-area')
+
+            // dropArea.addEventListener('dragenter', handlerFunction, false)
+            // dropArea.addEventListener('dragleave', handlerFunction, false)
+            // dropArea.addEventListener('dragover', handlerFunction, false)
+            dropArea.addEventListener("dragover", function(event) {
+                event.preventDefault();
+            });
+            dropArea.addEventListener('drop', function(e){
+                let dt = e.dataTransfer
+                let files = dt.files
+
+                let formData = new FormData();
+                
+                formData.append('file', files[0])
+
+                fetch('test', {
+                    method: 'POST',
+                    body: formData
+                })
+            })
+        }
+
 
     </script>
 </html>

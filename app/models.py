@@ -19,3 +19,10 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post {}>'.format(self.body)
+
+class Transaction(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime)
+    notes = db.Column(db.String(500))
+    funds_in = db.Column(db.Numeric(10, 2), nullable=True)
+    funds_out = db.Column(db.Numeric(10, 2), nullable=True)
